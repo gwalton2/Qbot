@@ -19,7 +19,7 @@ options.add_argument(r'load-extension=C:\Users\walto\AppData\Local\Google\Chrome
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--ignore-ssl-errors')
 options.add_argument('--window-size=1920,1080')
-#options.add_argument('--headless')
+options.add_argument('--headless')
 driver = webdriver.Chrome(r'chromedriver_win32\chromedriver.exe', chrome_options=options)
 
 MAIN_URL = "https://www.quora.com"
@@ -38,7 +38,7 @@ FALIED_Q = []
 def post(filename, num):
 	global QUESTIONS
 
-	QUESTIONS = open(filename, "r", encoding="utf-8").readlines()
+	QUESTIONS = open('ques_files/' + filename, "r", encoding="utf-8").readlines()
 	start = time.time()
 
 	for q in QUESTIONS[:num]:
@@ -57,7 +57,7 @@ def post(filename, num):
 
 	push.send(f"{USERNAME}: {FAILED_QUESTIONS} failed qs, {FAILED_TOPICS} failed ts, {FAILED_RECOMMENDATIONS} failed rs", PUSH_ID)
 	push.send(f"{USERNAME}: Completed in {end - start}", PUSH_ID)
-	push.send(f"{USERNAME}: Earnings", PUSH_ID, body=get_earnings())
+	#push.send(f"{USERNAME}: Earnings", PUSH_ID, body=get_earnings())
 
 def ask_question(question):
 	global ASKED_QUESTIONS
