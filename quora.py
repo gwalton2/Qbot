@@ -12,10 +12,14 @@ import os
 import sys
 
 options = webdriver.ChromeOptions()
+
+#local location of vpn extension for run machine
+options.add_argument(r'load-extension=C:\Users\walto\AppData\Local\Google\Chrome\User Data\Default\Extensions\fgddmllnllkalaagkghckoinaemmogpe\5.0.0.4150_0')
+
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--ignore-ssl-errors')
 options.add_argument('--window-size=1920,1080')
-options.add_argument('--headless')
+#options.add_argument('--headless')
 driver = webdriver.Chrome(r'chromedriver_win32\chromedriver.exe', chrome_options=options)
 
 MAIN_URL = "https://www.quora.com"
