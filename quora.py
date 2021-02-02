@@ -38,7 +38,7 @@ FALIED_Q = []
 def post(filename, num):
 	global QUESTIONS
 
-	QUESTIONS = open('ques_files/' + filename, "r", encoding="utf-8").readlines()
+	QUESTIONS = open(filename, "r", encoding="utf-8").readlines()
 	start = time.time()
 
 	for q in QUESTIONS[:num]:
@@ -259,6 +259,6 @@ if __name__ == '__main__':
 	open_quora()
 	time.sleep(5)
 	
-	post(filename, int(ques_num))
+	post('ques_files/' + filename, int(ques_num))
 	finish_json()
 	
