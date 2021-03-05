@@ -19,7 +19,7 @@ options.add_argument(r'load-extension=C:\Users\walto\AppData\Local\Google\Chrome
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--ignore-ssl-errors')
 options.add_argument('--window-size=1920,1080')
-options.add_argument('--headless')
+#options.add_argument('--headless')
 driver = webdriver.Chrome(r'chromedriver_win32\chromedriver.exe', chrome_options=options)
 
 MAIN_URL = "https://www.quora.com"
@@ -106,7 +106,7 @@ def ask(question):
 	WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'puppeteer_test_add_question_button'))).click() #clicks Add Question or Link button
 	WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.TAG_NAME, 'textarea'))).send_keys(question) #types question into text box
 	try:
-		WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_primary_button'))).click() #clicks Add Question button
+		add_button = WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_submit'))).click() #clicks Add Question button
 	except selexcep.ElementClickInterceptedException as e:  #catches weird error where it tries to click on disabled submit button but still clicks on right button. Hopefully doesnt end up passing on important webdriverexception errors
 		print('Passed on ElementClickInterceptedException')
 		pass
@@ -130,7 +130,7 @@ def ask(question):
 		try:
 			#question duplicate override
 			WebDriverWait(driver, 1).until(cw.unhidden_element_located((By.XPATH, "//*[text()='Was your question already asked?']")))
-			WebDriverWait(driver, 1).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_primary_button'))).click()
+			WebDriverWait(driver, 1).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_submit'))).click()
 		except Exception as e:
 			pass
 
@@ -144,7 +144,7 @@ def topics():
 			t.location_once_scrolled_into_view
 			ActionChains(driver).click(t).perform()
 
-	WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_primary_button'))).click() #clicks Done button
+	WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_submit'))).click() #clicks Done button
 
 def recommendations():
 	elements = WebDriverWait(driver, 5).until(cw.unhidden_elements_located((By.XPATH, "//span[@name='CirclePlus']")))
@@ -156,17 +156,17 @@ def recommendations():
 		except Exception as e:
 			print(e)
 
-	WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_primary_button'))).click()
+	WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'puppeteer_test_modal_submit'))).click()
 
 def open_quora():
 	driver.get(MAIN_URL)
 
-	login_forms = WebDriverWait(driver, 5).until(cw.unhidden_elements_located((By.CLASS_NAME, 'header_login_text_box')))
+	login_forms = WebDriverWait(driver, 5).until(cw.unhidden_elements_located((By.CLASS_NAME, 'q-input')))
 	login_forms[0].send_keys(USERNAME)
 	login_forms[1].send_keys(PASSWORD)
 
-	login_head = WebDriverWait(driver, 5).until(cw.unhidden_element_located((By.CLASS_NAME, 'form_inputs')))
-	login_head.find_element_by_class_name('submit_button').click()
+	login_button = WebDriverWait(driver, 5).until(cw.unhidden_elements_located((By.XPATH, "//button")))
+	login_button[1].click()
 
 def get_earnings():
 	"""
