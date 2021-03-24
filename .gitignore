@@ -1,3 +1,5 @@
-QBot.exe.config
-QBot.pdb
-__pycache__
+.vs
+obj/
+Properties/
+bin/Release
+bin/Debug/__pycache__
