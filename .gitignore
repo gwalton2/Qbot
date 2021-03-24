@@ -1,5 +1,4 @@
 .vs
 obj/
-Properties/
 bin/Release
 bin/Debug/__pycache__
