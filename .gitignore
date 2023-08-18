@@ -2,3 +2,5 @@
 obj/
 bin/Release
 bin/Debug/__pycache__
+*.txt
+*.json
